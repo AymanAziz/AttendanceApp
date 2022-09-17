@@ -18,6 +18,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await  userDbProvider.addUserData(event.userModel);
     });
 
+    on<GetUserUpdateDb>((event, emit) async {
+      await  userDbProvider.addUserData(event.userModel);
+    });
+
+
     // on<CheckUser>((event, emit) async {
     //   final userdata = await userDbProvider.checkUserData();
     //   emit(UserLoaded(userdata));

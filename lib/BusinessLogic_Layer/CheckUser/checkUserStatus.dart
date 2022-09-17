@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../Data_Layer/Repository/UserRepository/UserRepository.dart';
-import '../../Presentation_Layer/Screens/HomeScreen/Admin/AdminHomeScreen.dart';
 import '../../Presentation_Layer/Screens/HomeScreen/HomeScreen.dart';
+import '../../Presentation_Layer/Widget/NavBar.dart';
 
 checkUserStatus() async {
   String? email = FirebaseAuth.instance.currentUser?.email;
@@ -23,7 +23,10 @@ Widget checkUser() {
               }
             default:
               {
-                return const AdminHomeScreen();
+                // return const AdminHomeScreen();
+                return const Navbar();
+
+
               }
           }
         }
@@ -47,7 +50,7 @@ checkUserLogin(context) async {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (_) => const AdminHomeScreen()));
+                builder: (_) => const Navbar()));
       }
   }
 

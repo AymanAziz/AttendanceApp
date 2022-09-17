@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Main{
+class ListMain{
     final List<AttendanceModel> attendance;
 
-  Main({required this.attendance});
+    ListMain({required this.attendance});
 }
 
 
