@@ -12,17 +12,17 @@ class AttendanceModel
 {
   // Timestamp? date;
   String? email;
-  bool? attend;
+  String? username;
 
   // AttendanceModel({this.date, this.email, this.attend});
-  AttendanceModel({ this.email, this.attend});
+  AttendanceModel({ this.email, this.username});
 
   //save data to firebase
   Map<String, dynamic> toMap() {
     return {
       // 'username': date,
       'email': email,
-      'attend': attend,
+      'username': username,
     };
   }
 
@@ -32,7 +32,7 @@ class AttendanceModel
       DocumentSnapshot<Map<String, dynamic>> firestore) =>
       AttendanceModel(
         email: firestore.data()!['email'],
-        attend: firestore.data()!['attend'],
+        username: firestore.data()!['username'],
       );
 
   //get data from Repository
@@ -40,12 +40,12 @@ class AttendanceModel
       DocumentSnapshot<Map<String, dynamic>> firestore) =>
       AttendanceModel(
         email: firestore.data().toString().contains('email') ?firestore.get('email'):'',
-        attend: firestore.data().toString().contains('attend') ?firestore.get('attend'):'',
+        username: firestore.data().toString().contains('username') ?firestore.get('username'):'',
       );
 
   static AttendanceModel fromJson(Map<String, dynamic> json) => AttendanceModel(
     email: json['email'],
-    attend: json['attend']
+      username: json['attend']
   );
 
 }

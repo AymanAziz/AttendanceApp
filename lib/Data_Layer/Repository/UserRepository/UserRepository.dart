@@ -19,8 +19,8 @@ class UserRepository {
 
   //check email admin
   Future<String> checkUserStatus() async {
-    String? email = FirebaseAuth.instance.currentUser?.email;
-    return email!;
+    String? checkMail = FirebaseAuth.instance.currentUser!.email!;
+   return checkMail;
   }
 
   //add user to Repository

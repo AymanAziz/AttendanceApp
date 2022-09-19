@@ -1,10 +1,12 @@
 
 
 import '../../Model/UserModel/userModel.dart';
+import '../../Repository/SQliteRepository/SQliteRepository.dart';
 import '../../Repository/UserRepository/UserRepository.dart';
 
 class UserdbProvider {
   final UserRepository userRepository = UserRepository();
+   SqliteDatabase sqliteDatabase = SqliteDatabase.instance;
 
   //add user
   Future<void> addUserData(UserModel userModel) async {
@@ -17,7 +19,13 @@ class UserdbProvider {
   }
   //
   //check user
-  // Future<DocumentSnapshot<Object?>> checkUserData() async {
-  //   return userRepository.specificUser();
-  // }
+  Future<userModelSQLite> checkUserData() async {
+    return sqliteDatabase.getUserDetails();
+  }
+
+  Future<void> addUserDataSQLite(userModelSQLite userModelSqlite) async
+  {
+    return sqliteDatabase.createUser(userModelSqlite);
+  }
+
 }

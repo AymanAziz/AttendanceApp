@@ -387,8 +387,16 @@ class _SignUpState extends State<SignUpScreen> {
           isStudent: "Student"
       );
 
+      userModelSQLite userModelSqlite = userModelSQLite(
+          username: _nameController.text,
+          email: _emailController.text,
+          userID: _userNumberController.text,
+          telNumber: _telNumberController.text,
+          isStudent: "Student"
+      );
+
       //save to firestore
-      userBloc.add(GetUserData(usermodel));
+      userBloc.add(GetUserData(usermodel,userModelSqlite));
     }
   }
 }

@@ -8,8 +8,14 @@ class UserInitial extends UserState {
   @override
   List<Object> get props => [];
 }
+
+class UserLoading extends UserState{
+  @override
+  List<Object> get props =>[];
+}
+
 class UserLoaded extends UserState {
-  final DocumentSnapshot<Object?> userdata;
+  final userModelSQLite userdata;
   const UserLoaded(this.userdata);
 
   @override

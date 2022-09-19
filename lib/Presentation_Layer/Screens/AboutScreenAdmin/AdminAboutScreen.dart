@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../BusinessLogic_Layer/AuthBloc/auth_bloc.dart';
+import '../AttendanceAdmin/GetAttendanceScreen.dart';
 import '../ChangePasswordAdmin/ChangePasswordScreen.dart';
 import '../ProfilePageAdmin/AdminProfilePageScreen.dart';
 import '../login_and_register/SignInScreen.dart';
@@ -99,6 +100,18 @@ class _AdminAboutScreenState extends State<AdminAboutScreen> {
                   child: ListTile(title: Text('Change Password'),),
                 ),
               ),//change password
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  const GetAttendanceScreen()),
+
+                  );
+                },
+                child: const Card(
+                  child: ListTile(title: Text('Attendance Report'),),
+                ),
+              ),//attendance report
               GestureDetector(
                 onTap: (){
                   _showDialog(context);

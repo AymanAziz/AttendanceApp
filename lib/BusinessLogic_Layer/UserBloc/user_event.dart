@@ -9,17 +9,26 @@ abstract class UserEvent extends Equatable {
 class GetUserData extends UserEvent {
   //get update data
   final UserModel userModel;
-  const GetUserData(this.userModel);
+  final userModelSQLite userModelSqlite;
+  const GetUserData(this.userModel,this.userModelSqlite );
   @override
-  List<Object> get props => [userModel];
+  List<Object> get props => [userModel,userModelSqlite];
+}
+
+class GetUserDataProfile extends UserEvent {
+   final userModelSQLite userModelSqlite;
+  const GetUserDataProfile(this.userModelSqlite );
+  @override
+  List<Object> get props => [userModelSqlite];
 }
 
 class GetUserUpdateDb extends UserEvent {
   //get update data
   final UserModel userModel;
-  const GetUserUpdateDb(this.userModel);
+  final userModelSQLite userModelSqlite;
+  const GetUserUpdateDb(this.userModel,this.userModelSqlite);
   @override
-  List<Object> get props => [userModel];
+  List<Object> get props => [userModel,userModelSqlite];
 }
 
 class CheckUser extends UserEvent
