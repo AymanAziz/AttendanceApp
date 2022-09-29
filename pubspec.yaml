@@ -37,9 +37,9 @@ dependencies:
 
 
   #nosql
-  cloud_firestore: ^3.4.8
-  firebase_auth: ^3.9.0
-  firebase_core: ^1.22.0
+  cloud_firestore: ^3.4.9
+  firebase_auth: ^3.10.0
+  firebase_core: ^1.23.0
 
   #bloc
   flutter_bloc: ^8.1.1
@@ -53,11 +53,11 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
 
   #check internet connection
-  internet_connection_checker: ^0.0.1+4
-  firebase_app_check: ^0.0.7+1
+  internet_connection_checker: ^1.0.0+1
+  firebase_app_check: ^0.0.7+2
 
   #graph
-  syncfusion_flutter_charts: ^20.2.49
+  syncfusion_flutter_charts: ^20.2.50
 
   #navBar
   persistent_bottom_nav_bar: ^5.0.2
@@ -72,8 +72,19 @@ dependencies:
   select_form_field: ^2.2.0
 
   #sql
-  sqflite: ^2.0.3+1
+  sqflite: ^2.1.0
   path_provider: ^2.0.11
+
+  #1. get reminder information
+  datetime_picker_formfield: ^2.0.1
+  date_field: ^3.0.1
+
+  datepicker_dropdown: ^0.0.7+2
+  flutter_picker: any
+
+
+
+  intl: any
 
 dev_dependencies:
   flutter_test:

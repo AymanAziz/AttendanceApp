@@ -5,6 +5,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../BusinessLogic_Layer/AuthBloc/auth_bloc.dart';
 import '../AttendanceAdmin/GetAttendanceScreen.dart';
+import '../AttendanceAdmin/testGetListAttendance.dart';
 import '../ChangePasswordAdmin/ChangePasswordScreen.dart';
 import '../ProfilePageAdmin/AdminProfilePageScreen.dart';
 import '../login_and_register/SignInScreen.dart';
@@ -104,7 +105,7 @@ class _AdminAboutScreenState extends State<AdminAboutScreen> {
                 onTap: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  const GetAttendanceScreen()),
+                    MaterialPageRoute(builder: (context) =>  const TestGetAttendanceList()),
 
                   );
                 },

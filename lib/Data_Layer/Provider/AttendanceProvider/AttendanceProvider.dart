@@ -12,6 +12,10 @@ class AttendanceDbProvider {
   Future addUserDataToday() async {
     return attendanceRepository.getAttendance();
   }
+  //get attendance
+  Future<int> countUser() async {
+    return attendanceRepository.countUser();
+  }
 
   //get list attendance
   // Future<List<AttendanceModel>>  getDataToday() async {

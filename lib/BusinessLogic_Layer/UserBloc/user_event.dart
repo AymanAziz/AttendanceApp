@@ -30,6 +30,8 @@ class GetUserUpdateDb extends UserEvent {
   @override
   List<Object> get props => [userModel,userModelSqlite];
 }
+class CountUserFireStore extends UserEvent
+{}
 
 class CheckUser extends UserEvent
 {}

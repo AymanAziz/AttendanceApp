@@ -39,7 +39,7 @@ class SqliteDatabase
 
     // attendance table
     await db.execute(' '
-        ' CREATE TABLE Medicine(id INTEGER PRIMARY KEY AUTOINCREMENT,'
+        ' CREATE TABLE Attendance(id INTEGER PRIMARY KEY AUTOINCREMENT,'
         'date TEXT NOT NULL,'
         'name TEXT NOT NULL,'
         'email TEXT NOT NULL,'

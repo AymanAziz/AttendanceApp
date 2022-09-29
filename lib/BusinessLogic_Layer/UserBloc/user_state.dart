@@ -21,3 +21,11 @@ class UserLoaded extends UserState {
   @override
   List<Object?> get props => [userdata];
 }
+
+class TotalUserState extends UserState {
+  final int totalUser;
+  const TotalUserState(this.totalUser);
+
+  @override
+  List<Object?> get props => [totalUser];
+}
