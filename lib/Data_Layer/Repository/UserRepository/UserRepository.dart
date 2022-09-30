@@ -17,6 +17,11 @@ class UserRepository {
     return uid.toString();
   }
 
+  //check email admin
+  Future<String> checkUserStatus() async {
+    String? email = FirebaseAuth.instance.currentUser?.email;
+    return email!;
+  }
 
   //add user to Repository
   Future<void> addUser(UserModel userModel) async {
@@ -31,17 +36,45 @@ class UserRepository {
     return;
   }
 
+
+  //add user to Repository
+  Future<void> updateUser(UserModel userModel) async {
+    String uid = userModel.email.toString();
+    await db.doc(uid).update({
+      'username': userModel.name,
+      'email': userModel.email,
+      'telNumber': userModel.telNumber,
+      'userID': userModel.userID,
+      'isStudent': userModel.isStudent
+    });
+    return;
+  }
+
+
+
+
   // //get data specific  user from Repository
-  // Future<DocumentSnapshot<Object?>> specificUser() async {
-  //   FirebaseFirestore dbTest = FirebaseFirestore.instance;
-  //   // dbTest.collection('medicatonformulary').doc("OtM3DD5lkEeSL3psBDtK").set({
-  //   //   "Dosage": DateTime.now().millisecondsSinceEpoch,
+  // Future<DocumentSnapshot<Object?>> specificUser()  async {
+  //   String emailAdmin = await checkUserStatus();
+  //
+  //     // dbTest.collection('user').doc(emailAdmin).set({
+  //   //   "isStudent":
   //   //   "MDC": 'ss',
   //   // });
+  //   return  db.doc(emailAdmin).snapshots().map((event){
   //
-  //   String uid = await getuid();
-  //   return await db.doc(uid).get();
+  //
+  //   });
+    // String uid = await getuid();
+    // return await db.doc(uid).get();
   // }
+
+  Stream<DocumentSnapshot<Object?>> specificUser() {
+    String? email = FirebaseAuth.instance.currentUser?.email;
+    Stream<DocumentSnapshot> courseDocStream = db.doc(email).snapshots();
+    return courseDocStream;
+  }
+
 
 
 // //get data specific  user from Repository check if is user or not
@@ -50,7 +83,6 @@ class UserRepository {
     await db.doc(email).get().then((value) => {data = value.data()});
     String userStatus = data["isStudent"];
     return userStatus;
-
   }
 
 

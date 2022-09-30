@@ -31,4 +31,13 @@ class UserModel {
         telNumber: firestore.data()!['telNumber'],
         isStudent: firestore.data()!['isStudent'],
       );
+
+  static UserModel fromJson(Map<String, dynamic>json) => UserModel(
+    name: json['username'],
+    email: json['email'],
+    userID: json['userID'],
+    telNumber: json['telNumber'],
+    isStudent: json['isStudent'],
+
+  );
 }

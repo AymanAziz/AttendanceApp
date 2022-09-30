@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,8 +20,13 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  FirebaseFirestore.instance.settings =
+      const Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
+
   await FirebaseAppCheck.instance.activate();
   runApp(const MyApp());
+
+
 }
 
 class MyApp extends StatelessWidget {

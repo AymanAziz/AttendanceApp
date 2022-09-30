@@ -11,13 +11,12 @@ class UserdbProvider {
     return userRepository.addUser(userModel);
   }
 
-
   // //update user
-  // Future<void> updateUser(UserModel userModel) async {
-  //   return userRepository.update(userModel);
-  // }
+  Future<void> updateUser(UserModel userModel) async {
+    return userRepository.updateUser(userModel);
+  }
   //
-  // //check user
+  //check user
   // Future<DocumentSnapshot<Object?>> checkUserData() async {
   //   return userRepository.specificUser();
   // }

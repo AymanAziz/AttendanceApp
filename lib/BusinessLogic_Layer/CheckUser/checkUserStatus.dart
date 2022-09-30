@@ -1,10 +1,11 @@
+import 'package:attandance_app/Presentation_Layer/Screens/Student/StudentDashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../Data_Layer/Repository/UserRepository/UserRepository.dart';
-import '../../Presentation_Layer/Screens/HomeScreen/Admin/AdminHomeScreen.dart';
 import '../../Presentation_Layer/Screens/HomeScreen/HomeScreen.dart';
+import '../../Presentation_Layer/Widget/NavBar.dart';
 
 checkUserStatus() async {
   String? email = FirebaseAuth.instance.currentUser?.email;
@@ -19,11 +20,15 @@ Widget checkUser() {
           switch (userStatus.data) {
             case "Student":
               {
-                return const HomeScreen();
+                // return const HomeScreen();
+                return const StudentDashboard();
               }
             default:
               {
-                return const AdminHomeScreen();
+                // return const AdminHomeScreen();
+                return const Navbar();
+
+
               }
           }
         }
@@ -47,7 +52,7 @@ checkUserLogin(context) async {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (_) => const AdminHomeScreen()));
+                builder: (_) => const Navbar()));
       }
   }
 

@@ -14,5 +14,13 @@ class GetUserData extends UserEvent {
   List<Object> get props => [userModel];
 }
 
+class GetUserUpdateDb extends UserEvent {
+  //get update data
+  final UserModel userModel;
+  const GetUserUpdateDb(this.userModel);
+  @override
+  List<Object> get props => [userModel];
+}
+
 class CheckUser extends UserEvent
 {}
