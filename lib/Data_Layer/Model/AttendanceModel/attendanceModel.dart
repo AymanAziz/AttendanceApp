@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
 class ListMain{
     final List<AttendanceModel> attendance;
@@ -47,5 +48,49 @@ class AttendanceModel
     email: json['email'],
       username: json['attend']
   );
+
+}
+
+class AttendanceSQLModel extends Equatable{
+  final int? id;
+  final String date;
+  final String name;
+  final String email;
+  final String? UserId;
+
+  AttendanceSQLModel({
+    this.id,
+    required this.date,
+    required this.name,
+    required this.email,
+    this.UserId
+  });
+
+  factory AttendanceSQLModel.fromJson(Map<String, dynamic> json) {
+    return AttendanceSQLModel(
+        id: json['id'],
+        date: json['date'],
+        name: json['name'],
+        email: json['email'],
+        UserId: json['UserId']
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'date': date,
+    'name': name,
+    'email': email,
+    'UserId': UserId
+  };
+
+  @override
+  List<Object?> get props => [
+    id,
+    date,
+    name,
+    email,
+    UserId
+  ];
 
 }

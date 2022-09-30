@@ -30,6 +30,14 @@ class GetUserUpdateDb extends UserEvent {
   @override
   List<Object> get props => [userModel,userModelSqlite];
 }
+
+class GetUserWithEmail extends UserEvent{
+  final String email;
+  const GetUserWithEmail(this.email);
+  @override
+  List<Object> get props => [email];
+}
+
 class CountUserFireStore extends UserEvent
 {}
 

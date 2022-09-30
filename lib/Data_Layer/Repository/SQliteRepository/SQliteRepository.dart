@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+import '../../Model/AttendanceModel/attendanceModel.dart';
 import '../../Model/UserModel/userModel.dart';
 import '../UserRepository/UserRepository.dart';
 
 
-class SqliteDatabase
-{
+class SqliteDatabase {
   static final SqliteDatabase instance = SqliteDatabase._init();
   static Database? _database;
   SqliteDatabase._init();
@@ -58,6 +58,15 @@ class SqliteDatabase
         ' ');
 
 
+  }
+  Future<List<AttendanceSQLModel>> getUserAttendance(String email) async {
+    final db = await instance.database;
+
+    final attendanceSQLData = await db.query('Attendance',
+        orderBy: 'date', where: 'email=?', whereArgs: [email]);
+    return attendanceSQLData
+        .map((json) => AttendanceSQLModel.fromJson(json))
+        .toList();
   }
 
   Future<userModelSQLite> getUserDetails() async {

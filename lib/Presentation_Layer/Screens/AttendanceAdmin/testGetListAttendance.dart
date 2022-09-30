@@ -48,7 +48,7 @@ class _TestGetAttendanceListState extends State<TestGetAttendanceList> {
             DateTime? aa = (picker.adapter as DateTimePickerAdapter).value;
             selectDateDatabase = formatter.format(aa!);
             print('ini data kt db $selectDateDatabase');
-            selectDate = formatter.format(aa!);
+            selectDate = formatter.format(aa);
             hideWidget();
           });
           // print((picker.adapter as DateTimePickerAdapter).value);

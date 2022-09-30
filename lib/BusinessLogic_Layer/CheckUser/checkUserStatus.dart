@@ -1,3 +1,4 @@
+import 'package:attandance_app/Presentation_Layer/Screens/Student/Home/StudentHomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,7 +20,7 @@ Widget checkUser() {
           switch (userStatus.data) {
             case "Student":
               {
-                return const HomeScreen();
+                return const StudentHomeScreen();
               }
             default:
               {
