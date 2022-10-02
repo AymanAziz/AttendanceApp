@@ -87,17 +87,6 @@ class _AdminProfilePageScreenState extends State<AdminProfilePageScreen> {
                             telNumber.text = userDocument["telNumber"];
                             isStudent.text = userDocument["isStudent"];
 
-                            //
-                            // userModelSQLite userModelSqlite = userModelSQLite(
-                            //     username: username.text,
-                            //     email: email.text,
-                            //     userID: userID.text,
-                            //     telNumber: telNumber.text,
-                            //     isStudent: isStudent.text,
-                            // );
-                            //
-                            // userBloc.add(GetUserDataProfile(userModelSqlite));
-
 
                             // return Text(userDocument!["email"]);
                             return SingleChildScrollView(
@@ -166,7 +155,7 @@ class _AdminProfilePageScreenState extends State<AdminProfilePageScreen> {
                                                   return null;
                                                 },
                                               ),
-                                            ) ,//gender
+                                            ) ,//status
                                             const SizedBox(
                                               height: 20,
                                             ),

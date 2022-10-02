@@ -1,9 +1,11 @@
+import 'package:attandance_app/BusinessLogic_Layer/UserBloc/user_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../BusinessLogic_Layer/AttendanceBloc/attendance_bloc.dart';
 import '../../../BusinessLogic_Layer/AuthBloc/auth_bloc.dart';
 import '../login_and_register/SignInScreen.dart';
 
@@ -16,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String _scanBarcode = 'Unknown';
+  AttendanceBloc attendanceBloc = AttendanceBloc();
 
   @override
   void initState() {
@@ -47,6 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _scanBarcode = barcodeScanRes;
     });
+
+    switch(_scanBarcode) {
+      case "Attend":
+        {  print("valid value");
+        attendanceBloc.add(AddAttendanceUser());
+        }
+        break;
+      default: { print("Invalid choice"); }
+      break;
+    }
+
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.

@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 
 import '../../Data_Layer/Repository/UserRepository/UserRepository.dart';
 import '../../Presentation_Layer/Screens/HomeScreen/HomeScreen.dart';
+import '../../Presentation_Layer/Screens/Student/Home/StudentHomeScreen.dart';
+import '../../Presentation_Layer/Screens/Student/StudentDashboard.dart';
 import '../../Presentation_Layer/Widget/NavBar.dart';
 
 checkUserStatus() async {
@@ -19,7 +21,9 @@ Widget checkUser() {
           switch (userStatus.data) {
             case "Student":
               {
-                return const HomeScreen();
+                // return const HomeScreen();
+                // return const StudentDashboard();
+                return const StudentHomeScreen();
               }
             default:
               {

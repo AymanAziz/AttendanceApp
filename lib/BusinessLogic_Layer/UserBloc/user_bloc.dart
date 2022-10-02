@@ -1,6 +1,4 @@
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../Data_Layer/Model/UserModel/userModel.dart';

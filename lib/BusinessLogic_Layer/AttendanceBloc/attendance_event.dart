@@ -7,3 +7,6 @@ abstract class AttendanceEvent {
 }
 class GetAttendanceData extends AttendanceEvent {
 }
+
+class AddAttendanceUser extends AttendanceEvent
+{}

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 class AttendanceRepository {
   CollectionReference db = FirebaseFirestore.instance.collection('Attendance');
+  CollectionReference dbUser = FirebaseFirestore.instance.collection('user');
 
   Stream<DocumentSnapshot<Object?>> getAttendance() {
     DateTime currentDateTime = DateTime.now();
@@ -22,12 +24,11 @@ class AttendanceRepository {
 
 
   Future<bool> checkTodayAttendance() async {
-    DateTime currentDateTime = DateTime.now();
-    Timestamp myTimeStamp = Timestamp.fromDate(currentDateTime); //To TimeStamp
-    DateTime currentDate = myTimeStamp.toDate();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateTime startDate = DateTime.now();
+    var selectDateDatabase = formatter.format(startDate!);
 
-    var userDocRef = db.doc(DateTime(currentDate.year, currentDate.month, 15)
-        .toString()).get();
+    var userDocRef = db.doc(selectDateDatabase).get();
 
     if (userDocRef == null) {
       return true;
@@ -69,6 +70,55 @@ class AttendanceRepository {
     List<DocumentSnapshot> myDocCount = myDoc.docs;
     print(myDocCount.length);
     return myDocCount.length;// Count of Documents in Collection
+  }
+
+
+  Future addAttendanceUser() async {
+
+    String? email = FirebaseAuth.instance.currentUser?.email;
+    var data;
+    await dbUser.doc(email).get().then((value) => {data = value.data()});
+    var userDetails = {'username':data["username"]};
+
+    ///---------------------------------------
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateTime startDate = DateTime.now();
+    var selectDateDatabase = formatter.format(startDate!);
+    ///---------------------------------------
+
+    bool checkAttendance  = false;
+
+    var userDocRef = db.doc(selectDateDatabase);
+    var doc = await userDocRef.get();
+    if (!doc.exists) {
+       checkAttendance  = true;
+    } else {
+    }
+    ///---------------------------------------
+
+
+
+    switch(checkAttendance) {
+      case true:
+        {  print("save to firestore");
+
+          db.doc(selectDateDatabase).set({
+          "Student": [ userDetails ]
+        },SetOptions(merge: true));
+
+
+        }
+
+        break;
+      default: { print("Invalid choice?? ehh");
+
+      db.doc(selectDateDatabase).update({
+        "Student": FieldValue.arrayUnion(userDetails.values.toList())
+      });
+      }
+      break;
+    }
+
   }
 }
 

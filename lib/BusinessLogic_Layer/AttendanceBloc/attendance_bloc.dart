@@ -12,10 +12,11 @@ part 'attendance_state.dart';
 class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   AttendanceBloc() : super(AttendanceInitial()) {
     final AttendanceDbProvider attendanceDbProvider = AttendanceDbProvider();
-    // on<GetAttendanceData>((event, emit) async {
-    //   emit(AttendanceLoading());
-    //   final attendanceList = await attendanceDbProvider.getDataToday();
-    //   emit(AttendanceListTodayLoaded(attendanceList));
-    // });
+
+    on<AddAttendanceUser>((event, emit) async {
+      await attendanceDbProvider.addAttendance();
+      // emit(UserLoaded(userdata));
+    });
+
   }
 }
