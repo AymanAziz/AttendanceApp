@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../HomeScreen/HomeScreen.dart';
 import '../Setting/StudentSetting.dart';
 
 
@@ -24,7 +25,8 @@ class _NavbarStudentState extends State<NavbarStudent> {
   List<Widget> _navScreens() {
     return [
       //homepage
-      const StudentHomeScreen(),
+      // const StudentHomeScreen(),
+      const HomeScreen(),
       ///second page
       //about page
       const StudentSetting()

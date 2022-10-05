@@ -77,6 +77,7 @@ class AttendanceRepository {
 
     String? email = FirebaseAuth.instance.currentUser?.email;
     var data;
+    ///dia nk get data  name value
     await dbUser.doc(email).get().then((value) => {data = value.data()});
     var userDetails = {'username':data["username"]};
 
@@ -102,6 +103,8 @@ class AttendanceRepository {
       case true:
         {  print("save to firestore");
 
+          ///kiv  aspect result: result nak array --> string
+        ///kiv   actual result : array--> map --> string
           db.doc(selectDateDatabase).set({
           "Student": [ userDetails ]
         },SetOptions(merge: true));
@@ -112,6 +115,8 @@ class AttendanceRepository {
         break;
       default: { print("Invalid choice?? ehh");
 
+      ///kiv  aspect result: result nak array --> string
+      ///kiv  actual result: result nak array --> string
       db.doc(selectDateDatabase).update({
         "Student": FieldValue.arrayUnion(userDetails.values.toList())
       });
