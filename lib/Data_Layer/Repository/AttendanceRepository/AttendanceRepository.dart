@@ -103,6 +103,9 @@ class AttendanceRepository {
       case true:
         {  print("save to firestore");
 
+          /// kt sini ko save kt sqlite if n only if ( data tu x de)
+
+
           ///kiv  aspect result: result nak array --> string
         ///kiv   actual result : array--> map --> string
           db.doc(selectDateDatabase).set({
@@ -114,6 +117,8 @@ class AttendanceRepository {
 
         break;
       default: { print("Invalid choice?? ehh");
+
+      /// kt sini ko save kt sqlite if n only if ( data tu x de)
 
       ///kiv  aspect result: result nak array --> string
       ///kiv  actual result: result nak array --> string
