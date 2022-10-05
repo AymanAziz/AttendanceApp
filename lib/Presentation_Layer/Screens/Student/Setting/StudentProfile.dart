@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:select_form_field/select_form_field.dart';
 
@@ -9,15 +10,18 @@ import '../../../../BusinessLogic_Layer/UserBloc/user_bloc.dart';
 import '../../../../Data_Layer/Model/UserModel/userModel.dart';
 import '../../../../Data_Layer/Repository/UserRepository/UserRepository.dart';
 
-class StudentProfile extends StatefulWidget {
-  const StudentProfile({Key? key}) : super(key: key);
+
+
+class StudentProfilePageScreen extends StatefulWidget {
+  const StudentProfilePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<StudentProfile> createState() => _StudentProfile();
+  State<StudentProfilePageScreen> createState() => _StudentProfilePageScreenState();
 }
 
-class _StudentProfile extends State<StudentProfile> {
-//declare bloc
+class _StudentProfilePageScreenState extends State<StudentProfilePageScreen> {
+
+  //declare bloc
   final UserBloc userBloc = UserBloc();
 
   //form
@@ -132,9 +136,28 @@ class _StudentProfile extends State<StudentProfile> {
                                             },
                                           ),
                                         ),//email
+
                                         const SizedBox(
                                           height: 20,
                                         ),
+                                        SizedBox(
+                                          width: cWidth,
+                                          child: SelectFormField(
+                                            type: SelectFormFieldType.dropdown,
+                                            labelText: 'Status',
+                                            controller: isStudent.text.isEmpty?null:isStudent,
+                                            items: _items,
+                                            onChanged: (val) => isStudent.text = val,
+                                            onSaved: (val) => isStudent.text = val!,
+                                            validator: (value) {
+                                              if (value == null || value.isEmpty) {
+                                                return 'Please select Status';
+                                              }
+                                              isStudent.text = value;
+                                              return null;
+                                            },
+                                          ),
+                                        ) ,//status
                                         const SizedBox(
                                           height: 20,
                                         ),
@@ -219,7 +242,7 @@ class _StudentProfile extends State<StudentProfile> {
                                                     UserModel usermodel = UserModel(
                                                       email: user.email!,
                                                       name:  username.text,
-                                                      isStudent: "Student",
+                                                      isStudent: isStudent.text,
                                                       telNumber: telNumber.text,
                                                       userID: userID.text,
                                                     );
@@ -229,7 +252,7 @@ class _StudentProfile extends State<StudentProfile> {
                                                       email: user.email!,
                                                       userID: userID.text,
                                                       telNumber: telNumber.text,
-                                                      isStudent: "Student",
+                                                      isStudent: isStudent.text,
                                                     );
 
                                                     //insert data using bloc
@@ -517,5 +540,4 @@ class _StudentProfile extends State<StudentProfile> {
       ),
     ));
   }
-
 }

@@ -6,6 +6,7 @@ import '../../Data_Layer/Repository/UserRepository/UserRepository.dart';
 import '../../Presentation_Layer/Screens/HomeScreen/HomeScreen.dart';
 import '../../Presentation_Layer/Screens/Student/Home/StudentHomeScreen.dart';
 import '../../Presentation_Layer/Screens/Student/StudentDashboard.dart';
+import '../../Presentation_Layer/Screens/Student/Widget/NavBarStudent.dart';
 import '../../Presentation_Layer/Widget/NavBar.dart';
 
 checkUserStatus() async {
@@ -23,7 +24,8 @@ Widget checkUser() {
               {
                 // return const HomeScreen();
                 // return const StudentDashboard();
-                return const StudentHomeScreen();
+                // return const StudentHomeScreen();
+                return const NavbarStudent();
               }
             default:
               {
@@ -46,7 +48,7 @@ checkUserLogin(context) async {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (_) => const HomeScreen()));
+                builder: (_) => const NavbarStudent()));
       }
       break;
     default:

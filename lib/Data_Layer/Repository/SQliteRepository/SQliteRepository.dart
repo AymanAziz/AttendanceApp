@@ -77,11 +77,15 @@ class SqliteDatabase
     }
   }
 
+
+
+
   Future createUser(userModelSQLite reminder) async {
     Database db = await instance.database;
     userModelSQLite reminderResponse;
     //check email from firebase auth
     String email = FirebaseAuth.instance.currentUser?.email! ?? "0";
+
 
     //check email from FireStore
     if(email == "0")
@@ -100,9 +104,7 @@ class SqliteDatabase
     else
       {
         final maps = await db.rawQuery(
-            'SELECT * FROM USER WHERE email = ? Limit 1', [reminder.email]);
-        reminderResponse = userModelSQLite.fromJSON(maps.first);
-
+            'SELECT * FROM USER WHERE email = ?', [reminder.email]);
 
 
         if(maps.isEmpty)
@@ -120,6 +122,7 @@ class SqliteDatabase
         }
         else
         {
+          reminderResponse = userModelSQLite.fromJSON(maps.first);
           await db.rawUpdate(
               'UPDATE USER SET name = ?, phoneNumber = ?, StaffOrUserID = ?, isStudent = ?, email = ?  WHERE id = ?',[
             reminder.username,
