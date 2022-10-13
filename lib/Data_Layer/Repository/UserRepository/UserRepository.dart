@@ -52,23 +52,6 @@ class UserRepository {
 
 
 
-
-  // //get data specific  user from Repository
-  // Future<DocumentSnapshot<Object?>> specificUser()  async {
-  //   String emailAdmin = await checkUserStatus();
-  //
-  //     // dbTest.collection('user').doc(emailAdmin).set({
-  //   //   "isStudent":
-  //   //   "MDC": 'ss',
-  //   // });
-  //   return  db.doc(emailAdmin).snapshots().map((event){
-  //
-  //
-  //   });
-    // String uid = await getuid();
-    // return await db.doc(uid).get();
-  // }
-
   Stream<DocumentSnapshot<Object?>> specificUser() {
     String? email = FirebaseAuth.instance.currentUser?.email;
     Stream<DocumentSnapshot> courseDocStream = db.doc(email).snapshots();

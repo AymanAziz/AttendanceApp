@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../BusinessLogic_Layer/AuthBloc/auth_bloc.dart';
+import '../AddNewAdmin/ListUser/ListUser.dart';
 import '../AttendanceAdmin/GetAttendanceScreen.dart';
 import '../AttendanceAdmin/testGetListAttendance.dart';
 import '../ChangePasswordAdmin/ChangePasswordScreen.dart';
@@ -88,7 +89,7 @@ class _AdminAboutScreenState extends State<AdminAboutScreen> {
                 child: const Card(
                   child: ListTile(title: Text('Profile'),),
                 ),
-              ),//user profile
+              ),///user profile
               GestureDetector(
                 onTap: (){
                   Navigator.push(
@@ -100,7 +101,19 @@ class _AdminAboutScreenState extends State<AdminAboutScreen> {
                 child: const Card(
                   child: ListTile(title: Text('Change Password'),),
                 ),
-              ),//change password
+              ),///change password
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  const UserListScreen()),
+
+                  );
+                },
+                child: const Card(
+                  child: ListTile(title: Text('Add New Admin'),),
+                ),
+              ),///Add Admin
               GestureDetector(
                 onTap: (){
                   Navigator.push(
@@ -112,7 +125,7 @@ class _AdminAboutScreenState extends State<AdminAboutScreen> {
                 child: const Card(
                   child: ListTile(title: Text('Attendance Report'),),
                 ),
-              ),//attendance report
+              ),///attendance report
               GestureDetector(
                 onTap: (){
                   _showDialog(context);

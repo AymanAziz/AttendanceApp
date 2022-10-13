@@ -22,6 +22,16 @@ class UserLoaded extends UserState {
   List<Object?> get props => [userdata];
 }
 
+///list user update status
+class ListUserLoaded extends UserState {
+  final List<UserModel> userdata;
+  const ListUserLoaded(this.userdata);
+  @override
+  List<Object?> get props => [userdata];
+}
+
+
+
 class TotalUserState extends UserState {
   final int totalUser;
   const TotalUserState(this.totalUser);

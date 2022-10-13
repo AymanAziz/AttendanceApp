@@ -1,11 +1,13 @@
 
 
 import '../../Model/UserModel/userModel.dart';
+import '../../Repository/AttendanceRepository/AttendanceRepository.dart';
 import '../../Repository/SQliteRepository/SQliteRepository.dart';
 import '../../Repository/UserRepository/UserRepository.dart';
 
 class UserdbProvider {
   final UserRepository userRepository = UserRepository();
+  final AttendanceRepository attendanceRepository = AttendanceRepository();
    SqliteDatabase sqliteDatabase = SqliteDatabase.instance;
 
   //add user
@@ -22,6 +24,12 @@ class UserdbProvider {
   Future<userModelSQLite> checkUserData() async {
     return sqliteDatabase.getUserDetails();
   }
+
+  //check user
+  Future<List<UserModel>> getListUser() async {
+    return attendanceRepository.listUsers();
+  }
+
 
   Future<void> addUserDataSQLite(userModelSQLite userModelSqlite) async
   {

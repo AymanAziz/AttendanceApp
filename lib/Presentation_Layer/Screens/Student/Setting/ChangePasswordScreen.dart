@@ -49,7 +49,7 @@ class _ChangePassword extends State<ChangePassword>{
                             : null;
                       },
                     )
-                ),
+                ),/// old password
                 const SizedBox(
                   height: 20,
                 ),
@@ -68,7 +68,7 @@ class _ChangePassword extends State<ChangePassword>{
                             : null;
                       },
                     )
-                ),
+                ),///new password 1
                 const SizedBox(
                   height: 20,
                 ),
@@ -87,7 +87,7 @@ class _ChangePassword extends State<ChangePassword>{
                             : null;
                       },
                     )
-                ),
+                ),///new password 2
                 Padding(
                   padding:
                   const EdgeInsets.fromLTRB(70, 30, 70, 10),
@@ -141,7 +141,7 @@ class _ChangePassword extends State<ChangePassword>{
                     },
                     child: const Text('Submit'),
                   ),
-                ),
+                ),/// button submit
               ],
             ),
           ),

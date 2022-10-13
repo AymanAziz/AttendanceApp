@@ -30,7 +30,20 @@ class GetUserUpdateDb extends UserEvent {
   @override
   List<Object> get props => [userModel,userModelSqlite];
 }
+
+///get update user status
+class GetUserUpdateStatus extends UserEvent {
+  final UserModel userModel;
+  const GetUserUpdateStatus(this.userModel);
+  @override
+  List<Object> get props => [userModel];
+}
+
+
 class CountUserFireStore extends UserEvent
+{}
+
+class GetListUserForAdmin extends UserEvent
 {}
 
 class CheckUser extends UserEvent

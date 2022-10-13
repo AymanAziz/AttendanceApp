@@ -44,7 +44,7 @@ class SqliteDatabase
         'name TEXT NOT NULL,'
         'email TEXT NOT NULL,'
         'UserId INTEGER NOT NULL,'
-        'FOREIGN KEY (UserId) REFERENCES Hospital (id))'
+        'FOREIGN KEY (UserId) REFERENCES USER (id))'
         ' ');
 
     //equipment table
@@ -54,7 +54,7 @@ class SqliteDatabase
         'EquipmentDescription TEXT NOT NULL,'
         'Quantity INTEGER NOT NULL,'
         'UserId INTEGER NOT NULL,'
-        'FOREIGN KEY (UserId) REFERENCES Hospital (id))'
+        'FOREIGN KEY (UserId) REFERENCES USER (id))'
         ' ');
 
 
@@ -66,8 +66,8 @@ class SqliteDatabase
     //check email from firebase auth
     String email = await UserRepository().checkUserStatus();
     print("email : $email ");
-    final maps = await db.rawQuery('SELECT * FROM USER WHERE email = ?',[email]);
 
+    final maps = await db.rawQuery('SELECT * FROM USER WHERE email = ?',[email]);
     if (maps.isNotEmpty) {
       return userModelSQLite.fromJSON(maps.first);
     }
