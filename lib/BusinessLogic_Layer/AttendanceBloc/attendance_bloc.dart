@@ -6,6 +6,8 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
+import '../../Data_Layer/Model/AttendanceModel/testAddAttendance.dart';
+
 part 'attendance_event.dart';
 part 'attendance_state.dart';
 
@@ -16,6 +18,14 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<AddAttendanceUser>((event, emit) async {
       await attendanceDbProvider.addAttendance();
       // emit(UserLoaded(userdata));
+    });
+
+
+
+    on<GetListAttendanceUser>((event, emit) async {
+      emit(AttendanceLoading());
+     final attendanceList = await attendanceDbProvider.getListAttendanceUser();
+     emit(AttendanceListLoaded(attendanceList));
     });
 
   }

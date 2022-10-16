@@ -5,9 +5,6 @@ class ListMain{
 
     ListMain({required this.attendance});
 }
-
-
-
 class AttendanceModel
 {
   // Timestamp? date;
@@ -49,6 +46,7 @@ class AttendanceModel
   );
 
 }
+
 
 
 

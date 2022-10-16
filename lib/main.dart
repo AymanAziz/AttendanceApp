@@ -57,17 +57,13 @@ class MyApp extends StatelessWidget {
                 if (snapshot.hasData) {
                   return FutureBuilder(
                       future: internetCheck(),
-                      builder: (
-                        context,
-                        snapshot,
-                      ) {
+                      builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasData) {
-                            //yg ni kalau ada data--> terus masuk x yah login
+                           ///yg ni kalau ada data--> terus masuk x yah login
 
                             return checkUser();
 
-                            // return const HomeScreen();
                           } else {
                             return const SignInScreen();
                           }

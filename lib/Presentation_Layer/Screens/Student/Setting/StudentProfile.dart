@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:select_form_field/select_form_field.dart';
 
 import '../../../../BusinessLogic_Layer/UserBloc/user_bloc.dart';
 import '../../../../Data_Layer/Model/UserModel/userModel.dart';
@@ -72,6 +71,7 @@ class _StudentProfilePageScreenState extends State<StudentProfilePageScreen> {
           {
 
             switch (state.userdata.email) {
+              ///if no user data in sqlite
               case '':
                 {
                 ///display data from Firestore ( using specific document snapshot)
@@ -337,6 +337,7 @@ class _StudentProfilePageScreenState extends State<StudentProfilePageScreen> {
                         }
                       });
                 }
+            ///if  user have data in sqlite
               default:
                 {
 

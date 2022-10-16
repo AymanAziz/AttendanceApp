@@ -62,12 +62,32 @@ class UserRepository {
 
 
 
-// //get data specific  user from Repository check if is user or not
+ ///get data specific  user from Repository check if is user or not
   Future checkUser(String email) async {
     var data;
     await db.doc(email).get().then((value) => {data = value.data()});
     String userStatus = data["isStudent"];
     return userStatus;
+  }
+
+  ///save user data for not first time user (user yg dah delete app, but ada account kt firestore)
+  ///get data specific  user from Repository check if is user or not
+  Future addNotFirstTimeUser(String email) async {
+    var data;
+    await db.doc(email).get().then((value) => {data = value.data()});
+    String isStudent = data["isStudent"];
+    String username = data["username"];
+    String telNumber = data["telNumber"];
+    String userID = data["userID"];
+
+    userModelSQLite userModelSqlite = userModelSQLite(
+      username: username,
+      email: email,
+      userID: userID,
+      telNumber: telNumber,
+      isStudent: isStudent,
+    );
+    return userModelSqlite;
   }
 
 

@@ -13,7 +13,7 @@ class AttendanceInitial extends AttendanceState {
 
 class AttendanceLoading extends AttendanceState {}
 
-class AttendanceListTodayLoaded extends AttendanceState {
-  final List<AttendanceModel> attendanceList;
-   AttendanceListTodayLoaded(this.attendanceList);
+class AttendanceListLoaded extends AttendanceState {
+  final List<AttendanceSQLite> attendanceList;
+   AttendanceListLoaded(this.attendanceList);
 }

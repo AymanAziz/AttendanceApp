@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import '../../Model/UserModel/userModel.dart';
+import '../SQliteRepository/SQliteRepository.dart';
 
 class AttendanceRepository {
   CollectionReference db = FirebaseFirestore.instance.collection('Attendance');
@@ -75,7 +76,7 @@ class AttendanceRepository {
 
   Future<int> countUser() async {
     int size = 0;
-    await FirebaseFirestore.instance.collection('user').get().then((snap) {
+    await FirebaseFirestore.instance.collection('user').where('isStudent', isEqualTo: 'Student').get().then((snap) {
       size = snap.size;
     });
     return size;
@@ -106,6 +107,7 @@ class AttendanceRepository {
 ///utk hasif
   Future addAttendanceUser() async {
     String? email = FirebaseAuth.instance.currentUser?.email;
+    final sQLiteDb = SqliteDatabase.instance;
     var data;
 
     ///dia nk get data  name value
@@ -119,6 +121,9 @@ class AttendanceRepository {
 
     ///---------------------------------------
 
+    /// check current document is exist in firestore
+    /// current document == current date
+
     bool checkAttendance = false;
 
     var userDocRef = db.doc(selectDateDatabase);
@@ -129,31 +134,54 @@ class AttendanceRepository {
 
     ///---------------------------------------
 
+    ///return true if no current date (doc) in firestore
     switch (checkAttendance) {
       case true:
         {
           print("save to firestore");
 
           /// kt sini ko save kt sqlite if n only if ( data tu x de)
+          bool status = await sQLiteDb.createAttendance(selectDateDatabase);
 
-          ///kiv  aspect result: result nak array --> string
-          ///kiv   actual result : array--> map --> string
-          db.doc(selectDateDatabase).set({
-            "Student": [userDetails]
-          }, SetOptions(merge: true));
+          /// return true if no data in SQLITE --> save to firestore
+          switch (status) {
+            case true:{
+              ///kiv  aspect result: result nak array --> string
+              ///kiv   actual result : array--> map --> string
+              db.doc(selectDateDatabase).set({
+                "Student": [userDetails]});
+              // }, SetOptions(merge: true));
+
+            }
+              break;
+            default:
+              {
+              }
+              break;
+          }
         }
 
         break;
       default:
         {
-          print("Invalid choice?? ehh");
 
           /// kt sini ko save kt sqlite if n only if ( data tu x de)
+          bool status = await sQLiteDb.createAttendance(selectDateDatabase);
 
-          ///kiv  aspect result: result nak array --> string
-          ///kiv  actual result: result nak array --> string
-          db.doc(selectDateDatabase).update(
-              {"Student": FieldValue.arrayUnion(userDetails.values.toList())});
+          /// return false if no data in SQLITE --> save to firestore
+          switch (status) {
+            case true:{
+              ///kiv  aspect result: result nak array --> string
+              ///kiv  actual result: result nak array --> string
+              db.doc(selectDateDatabase).update(
+                  {"Student": FieldValue.arrayUnion([userDetails])});
+            }
+            break;
+            default:
+              {
+              }
+              break;
+          }
         }
         break;
     }

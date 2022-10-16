@@ -1,12 +1,10 @@
-
-
-import 'package:attandance_app/Data_Layer/Model/AttendanceModel/attendanceModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../../Model/AttendanceModel/testAddAttendance.dart';
 import '../../Repository/AttendanceRepository/AttendanceRepository.dart';
+import '../../Repository/SQliteRepository/SQliteRepository.dart';
 
 class AttendanceDbProvider {
   final AttendanceRepository attendanceRepository = AttendanceRepository();
+  SqliteDatabase sqliteDatabase = SqliteDatabase.instance;
 
   //get attendance
   Future addUserDataToday() async {
@@ -19,6 +17,10 @@ class AttendanceDbProvider {
 
   Future addAttendance() async {
     return attendanceRepository.addAttendanceUser();
+  }
+
+  Future<List<AttendanceSQLite>> getListAttendanceUser() async {
+    return sqliteDatabase.getAttendanceList();
   }
 
   //get list attendance

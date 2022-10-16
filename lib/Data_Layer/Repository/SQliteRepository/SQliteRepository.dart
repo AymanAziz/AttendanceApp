@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+import '../../Model/AttendanceModel/testAddAttendance.dart';
 import '../../Model/UserModel/userModel.dart';
 import '../UserRepository/UserRepository.dart';
 
@@ -39,11 +40,9 @@ class SqliteDatabase
 
     // attendance table
     await db.execute(' '
-        ' CREATE TABLE Attendance(id INTEGER PRIMARY KEY AUTOINCREMENT,'
+        'CREATE TABLE Attendance(id INTEGER PRIMARY KEY AUTOINCREMENT,'
         'date TEXT NOT NULL,'
-        'name TEXT NOT NULL,'
-        'email TEXT NOT NULL,'
-        'UserId INTEGER NOT NULL,'
+        'userId INTEGER NOT NULL,'
         'FOREIGN KEY (UserId) REFERENCES USER (id))'
         ' ');
 
@@ -69,23 +68,98 @@ class SqliteDatabase
 
     final maps = await db.rawQuery('SELECT * FROM USER WHERE email = ?',[email]);
     if (maps.isNotEmpty) {
+
+      ///return model with user data (SQLITE)
       return userModelSQLite.fromJSON(maps.first);
     }
     else
     {
+      ///return empty model
       return const userModelSQLite(username: '', telNumber: '', userID: '', isStudent: '',id: 0, email: '');
+
+
     }
   }
 
 
 
+  ///save user data for not first time user (user yg dah delete app, but ada account kt firestore)
+  ///get data specific  user from Repository check if is user or not
+  Future<bool> saveUserDetails() async {
+    final db = await instance.database;
+
+    ///check email from firebase auth
+    String email = await UserRepository().checkUserStatus();
+
+    final maps = await db.rawQuery('SELECT * FROM USER WHERE email = ?',[email]);
+
+    ///save to db if empty
+    ///return true if it empty
+    if (maps.isEmpty) {
+      userModelSQLite  userModel = await UserRepository().addNotFirstTimeUser(email);
+
+      await db.rawInsert(
+          'INSERT INTO USER(name, phoneNumber, StaffOrUserID, isStudent, email) VALUES( ?, ?, ?, ?, ?)',
+          [
+            userModel.username,
+            userModel.telNumber,
+            userModel.userID,
+            userModel.isStudent,
+            userModel.email,
+          ]);
+
+      return true;
+    }
+    else
+      {
+        return false;
+      }
+
+  }
+
+  Future<bool> createAttendance(currentDate) async {
+    Database db = await instance.database;
+    userModelSQLite reminderResponse;
+
+    ///get user details from sqlite
+    /// find attendance from specific user
+    userModelSQLite  userModel = await getUserDetails();
+    final maps = await db.rawQuery('SELECT * FROM Attendance  INNER JOIN USER ON Attendance.userId = USER.id  WHERE date = ? AND USER.id = ?',[currentDate, userModel.id]);
+
+    ///save to db if empty
+    ///return true if it empty
+    if (maps.isEmpty) {
+
+      await db.rawInsert(
+          'INSERT INTO Attendance(date, userId) VALUES( ?, ?)',
+          [
+            currentDate,
+            userModel.id,
+          ]);
+
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+
+  }
+
+
+  ///student get list attendance
+  Future<List<AttendanceSQLite>> getAttendanceList() async {
+    final db = await instance.database;
+    userModelSQLite  userModel = await getUserDetails();
+    final maps = await db.rawQuery('SELECT * FROM Attendance INNER JOIN USER ON Attendance.userId = USER.id   WHERE USER.id = ?',[userModel.id]);
+    return maps.map((e) => AttendanceSQLite.fromJSON(e)).toList();
+  }
 
   Future createUser(userModelSQLite reminder) async {
     Database db = await instance.database;
     userModelSQLite reminderResponse;
     //check email from firebase auth
     String email = FirebaseAuth.instance.currentUser?.email! ?? "0";
-
 
     //check email from FireStore
     if(email == "0")
@@ -105,8 +179,6 @@ class SqliteDatabase
       {
         final maps = await db.rawQuery(
             'SELECT * FROM USER WHERE email = ?', [reminder.email]);
-
-
         if(maps.isEmpty)
         {
           //insert to Medicine table

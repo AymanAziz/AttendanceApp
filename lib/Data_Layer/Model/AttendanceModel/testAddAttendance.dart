@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 
 Attendance cargoPriceListModelFromJson(String str) =>
     Attendance.fromJson(json.decode(str));
@@ -53,3 +55,43 @@ class Student {
       };
 }
 
+/// model for attendance SQLITE
+
+class AttendanceSQLite extends Equatable {
+  final int? id;
+  final String date;
+  final int userId;
+  final String name;
+  final String StaffOrUserID;
+
+  const AttendanceSQLite(
+      {this.id,
+        required this.date,
+        required this.userId,
+        required this.name,
+        required this.StaffOrUserID,
+      });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'date': date,
+      'userId': userId,
+      'id': id,
+      'name': name,
+      'StaffOrUserID': StaffOrUserID,
+    };
+  }
+
+//get data from Repository
+  static AttendanceSQLite fromJSON(Map<String, Object?> json) => AttendanceSQLite(
+      date: json['date'] as String,
+      name: json['name'] as String,
+      StaffOrUserID: json['StaffOrUserID'] as String,
+      userId: json['userId'] as int,
+      id: json['id'] as int?);
+
+  @override
+// TODO: implement props
+  List<Object?> get props =>
+      [id, date,userId,name,StaffOrUserID];
+}

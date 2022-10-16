@@ -11,3 +11,6 @@ class GetAttendanceData extends AttendanceEvent {
 class AddAttendanceUser extends AttendanceEvent
 {}
 
+class GetListAttendanceUser extends AttendanceEvent
+{}
+
