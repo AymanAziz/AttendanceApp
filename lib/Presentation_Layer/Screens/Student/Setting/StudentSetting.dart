@@ -62,7 +62,8 @@ class _StudentSettingState extends State<StudentSetting> {
       child: SafeArea(child: Scaffold(
           appBar: AppBar(title: const Text('About'),
             backgroundColor: Colors.white,
-            foregroundColor: Colors.black,),
+            foregroundColor: Colors.black,
+          ),
           body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) async {
               if (state is UnAuthenticated) {

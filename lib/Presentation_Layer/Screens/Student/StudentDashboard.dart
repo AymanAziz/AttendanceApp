@@ -1,3 +1,4 @@
+import 'package:attandance_app/Presentation_Layer/Screens/HomeScreen/HomeScreen.dart';
 import 'package:attandance_app/Presentation_Layer/Screens/Student/Setting/StudentSetting.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class StudentDashboard extends StatefulWidget {
 
 class _StudentDashboard extends State<StudentDashboard> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [StudentHomeScreen(), const StudentSetting()];
+  List<Widget> _screens = [HomeScreen(), const StudentSetting()];
 
   int _selectedIndex = 0;
 
