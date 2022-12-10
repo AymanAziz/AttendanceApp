@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../../../BusinessLogic_Layer/AuthBloc/auth_bloc.dart';
-import '../../ChangePasswordAdmin/ChangePasswordScreen.dart';
+import '../../Admin/ChangePasswordAdmin/ChangePasswordScreen.dart';
 import '../../login_and_register/SignInScreen.dart';
 
 import 'StudentProfile.dart';

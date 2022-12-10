@@ -1,8 +1,9 @@
-import 'package:attandance_app/Presentation_Layer/Screens/AboutScreenAdmin/AdminAboutScreen.dart';
-import 'package:attandance_app/Presentation_Layer/Screens/HomeScreen/Admin/AdminHomePageScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../Screens/Admin/AboutScreenAdmin/AdminAboutScreen.dart';
+import '../Screens/Admin/HomeScreen/Admin/AdminHomePageScreen.dart';
 
 
 

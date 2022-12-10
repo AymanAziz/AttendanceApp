@@ -1,9 +1,12 @@
+import 'package:attandance_app/Presentation_Layer/Screens/Student/Cart/CartScreen.dart';
 import 'package:attandance_app/Presentation_Layer/Screens/Student/Home/StudentHomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../HomeScreen/HomeScreen.dart';
+import '../Cart/ConfirmCartScreen.dart';
+import '../Equipment/EquipmentTemplate.dart';
+import '../Home/HomeScreen.dart';
 import '../Setting/StudentSetting.dart';
 
 
@@ -24,14 +27,14 @@ class _NavbarStudentState extends State<NavbarStudent> {
 //Screens for each nav items.
   List<Widget> _navScreens() {
     return [
-      //homepage
-      // const StudentHomeScreen(),
+
       const HomeScreen(),
       ///second page
-      //about page
-      const StudentSetting()
-      // const TestSearch()
-      // MyForm()
+      const StudentSetting(),
+
+      ///test template
+      const CartScreen()
+      // const ConfirmCartScreen()
     ];
   }
 
@@ -47,6 +50,13 @@ class _NavbarStudentState extends State<NavbarStudent> {
       PersistentBottomNavBarItem(
         icon: const Icon(LineIcons.cog),
         title: ("About"),
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.black,
+        activeColorSecondary: Colors.black,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(LineIcons.alternativeTrashRestore),
+        title: ("Test"),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.black,
         activeColorSecondary: Colors.black,

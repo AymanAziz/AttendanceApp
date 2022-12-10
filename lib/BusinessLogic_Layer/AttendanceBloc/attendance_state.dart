@@ -17,3 +17,9 @@ class AttendanceListLoaded extends AttendanceState {
   final List<AttendanceSQLite> attendanceList;
    AttendanceListLoaded(this.attendanceList);
 }
+
+
+class AttendanceCurrentDateLoaded extends AttendanceState {
+  final AttendanceSQLite attendanceList;
+  AttendanceCurrentDateLoaded(this.attendanceList);
+}

@@ -37,14 +37,14 @@ dependencies:
 
 
   #nosql
-  cloud_firestore: ^3.4.9
-  firebase_auth: ^3.10.0
-  firebase_core: ^1.23.0
+  cloud_firestore: ^4.0.2
+  firebase_auth: ^4.0.2
+  firebase_core: ^2.1.0
 
   #bloc
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
-  meta: ^1.7.0
+  meta: ^1.8.0
 
   #form
   email_validator: ^2.1.17
@@ -54,10 +54,12 @@ dependencies:
 
   #check internet connection
   internet_connection_checker: ^1.0.0+1
-  firebase_app_check: ^0.0.7+2
+  firebase_app_check: ^0.1.1+1
 
-  #graph
-  syncfusion_flutter_charts: ^20.2.50
+  #convert to pdf
+  pdf: ^3.8.3
+  #open pdf document
+  open_file: ^3.2.1
 
   #navBar
   persistent_bottom_nav_bar: ^5.0.2
@@ -72,7 +74,7 @@ dependencies:
   select_form_field: ^2.2.0
 
   #sql
-  sqflite: ^2.1.0
+  sqflite: ^2.1.0+1
   path_provider: ^2.0.11
 
   #1. get reminder information
@@ -81,6 +83,9 @@ dependencies:
 
   datepicker_dropdown: ^0.0.7+2
   flutter_picker: any
+
+  date_time_picker: ^2.1.0
+
 
 
 
@@ -97,6 +102,19 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
 
+  flutter_native_splash: ^2.2.11
+
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: assets/logo.png
+
+flutter_native_splash:
+  color: '#ffffff'  #white color
+  image: assets/USIMLOGO.png
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -112,7 +130,9 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
+  assets:
+    - assets/USIMLOGO.png
+    - assets/logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

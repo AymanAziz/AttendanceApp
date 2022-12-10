@@ -541,7 +541,7 @@ class _StudentProfilePageScreenState extends State<StudentProfilePageScreen> {
           }
           else
           {
-            return const Text('error');
+            return const Text('');
           }
         }),
 

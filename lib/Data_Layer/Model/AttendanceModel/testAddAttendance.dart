@@ -9,37 +9,32 @@ Attendance cargoPriceListModelFromJson(String str) =>
 String cargoPriceListModelToJson(Attendance data) => json.encode(data.toJson());
 
 class Attendance {
-    // String admin;
+    /// String admin;
   List<Student> student;
 
   Attendance({
-    // required this.admin,
+    /// required this.admin,
     required this.student,
   });
 
   factory Attendance.fromJson(Map<String, dynamic> json) => Attendance(
-    // admin: json["admin"],
     student: List<Student>.from(json["student"]
         .map((x) => Student.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    // "id": id,
     "student":  List<dynamic>.from(student.map((x) => x.toJson())),
   };
 }
 
+
 class Student {
   String username;
   String email;
-  // int plastics;
-
 
   Student({
     required this.username,
     required this.email,
-    // required this.plastics,
-
   });
 
   factory Student.fromJson(Map<String, dynamic> json) =>
@@ -56,12 +51,12 @@ class Student {
 }
 
 /// model for attendance SQLITE
-
 class AttendanceSQLite extends Equatable {
   final int? id;
   final String date;
   final int userId;
   final String name;
+  final String labName;
   final String StaffOrUserID;
 
   const AttendanceSQLite(
@@ -69,6 +64,7 @@ class AttendanceSQLite extends Equatable {
         required this.date,
         required this.userId,
         required this.name,
+        required this.labName,
         required this.StaffOrUserID,
       });
 
@@ -78,6 +74,7 @@ class AttendanceSQLite extends Equatable {
       'userId': userId,
       'id': id,
       'name': name,
+      'labName':labName,
       'StaffOrUserID': StaffOrUserID,
     };
   }
@@ -86,6 +83,7 @@ class AttendanceSQLite extends Equatable {
   static AttendanceSQLite fromJSON(Map<String, Object?> json) => AttendanceSQLite(
       date: json['date'] as String,
       name: json['name'] as String,
+      labName: json['labName'] as String,
       StaffOrUserID: json['StaffOrUserID'] as String,
       userId: json['userId'] as int,
       id: json['id'] as int?);

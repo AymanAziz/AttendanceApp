@@ -6,7 +6,7 @@ import '../../../BusinessLogic_Layer/AuthBloc/auth_bloc.dart';
 import '../../../BusinessLogic_Layer/UserBloc/user_bloc.dart';
 import '../../../Data_Layer/Model/UserModel/userModel.dart';
 import '../../Widget/curve_widget.dart';
-import '../HomeScreen/HomeScreen.dart';
+import '../Student/Home/HomeScreen.dart';
 import 'SignInScreen.dart';
 
 class SignUpScreen extends StatefulWidget {

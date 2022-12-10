@@ -13,10 +13,12 @@ checkUserStatus() async {
   return UserRepository().checkUser(email!);
 }
 
-Widget checkUser() {
 
+/// check user kt firebase and local
+/// return true if student
+/// return false if admin
+Widget checkUser() {
   final sQLiteDb = SqliteDatabase.instance;
-  ///check if user already have data in firebase
   return FutureBuilder(
       future: sQLiteDb.saveUserDetails(),
       builder: (context, userStatus) {
@@ -24,12 +26,12 @@ Widget checkUser() {
           switch (userStatus.data) {
             case true:
               {
-                return checkUserDetailsSQLITE();
+                return const NavbarStudent();
               }
             default:
               {
 
-                return checkUserDetailsSQLITE();
+                return const Navbar();
 
               }
           }
@@ -38,6 +40,9 @@ Widget checkUser() {
       });
 
 }
+
+
+
 
 Widget checkUserDetailsSQLITE( ) {
   return FutureBuilder(

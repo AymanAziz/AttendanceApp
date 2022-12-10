@@ -3,11 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
+import '../../../BusinessLogic_Layer/AttendanceBloc/attendance_bloc.dart';
+import '../../Model/EquipmentLabModel/EquipmentLabModel.dart';
+import '../../Model/LabModel/LabModel.dart';
 import '../../Model/UserModel/userModel.dart';
 import '../SQliteRepository/SQliteRepository.dart';
 
 class AttendanceRepository {
-  CollectionReference db = FirebaseFirestore.instance.collection('Attendance');
+   FirebaseFirestore db = FirebaseFirestore.instance;
   CollectionReference dbUser = FirebaseFirestore.instance.collection('user');
 
   Stream<DocumentSnapshot<Object?>> getAttendance() {
@@ -24,20 +27,21 @@ class AttendanceRepository {
     return courseDocStream;
   }
 
-  Future<bool> checkTodayAttendance() async {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    DateTime startDate = DateTime.now();
-    var selectDateDatabase = formatter.format(startDate!);
+  // Future<bool> checkTodayAttendance() async {
+  //   final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  //   DateTime startDate = DateTime.now();
+  //   var selectDateDatabase = formatter.format(startDate!);
+  //
+  //   var userDocRef = db.doc(selectDateDatabase).snapshots();
+  //
+  //   if (await userDocRef.isEmpty) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
-    var userDocRef = db.doc(selectDateDatabase).snapshots();
-
-    if (await userDocRef.isEmpty) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+   ///betulkan admin punya database
   Stream<DocumentSnapshot<Object?>> getAttendanceTest(
       selectDateDatabase, pressDateButton) {
     String selectDate = '';
@@ -49,7 +53,7 @@ class AttendanceRepository {
       case false:
         {
           print('current date: $selectDate');
-          var courseDocStream = db.doc(selectDate).snapshots();
+          var courseDocStream = db.collection('Makmal1 Attendance').doc(selectDate).snapshots();
           return courseDocStream;
         }
       default:
@@ -62,11 +66,17 @@ class AttendanceRepository {
                     // .doc("${currentDate.year}-${currentDate.month}-0")
                     .doc("V1KydKOcAjjQ72t3EFcg")
                     .snapshots();
+                // var courseDocStream = db.doc(selectDateDatabase).snapshots();
+                return courseDocStream;
+              }
+            case 'A':
+              {
+                var courseDocStream = db.collection('Makmal1 Attendance').doc(selectDate).snapshots();
                 return courseDocStream;
               }
             default:
               {
-                var courseDocStream = db.doc(selectDateDatabase).snapshots();
+                var courseDocStream = db.collection('Makmal1 Attendance').doc(selectDateDatabase).snapshots();
                 return courseDocStream;
               }
           }
@@ -104,8 +114,8 @@ class AttendanceRepository {
 
 
 
-///utk hasif
-  Future addAttendanceUser() async {
+  ///dah solve yg db
+  Future addAttendanceUser( String labName) async {
     String? email = FirebaseAuth.instance.currentUser?.email;
     final sQLiteDb = SqliteDatabase.instance;
     var data;
@@ -126,7 +136,7 @@ class AttendanceRepository {
 
     bool checkAttendance = false;
 
-    var userDocRef = db.doc(selectDateDatabase);
+    var userDocRef = db.collection('$labName Attendance').doc(selectDateDatabase);
     var doc = await userDocRef.get();
     if (!doc.exists) {
       checkAttendance = true;
@@ -138,23 +148,21 @@ class AttendanceRepository {
     switch (checkAttendance) {
       case true:
         {
-          print("save to firestore");
-
           /// kt sini ko save kt sqlite if n only if ( data tu x de)
-          bool status = await sQLiteDb.createAttendance(selectDateDatabase);
+          bool status = await sQLiteDb.createAttendance(selectDateDatabase,labName);
 
-          /// return true if no data in SQLITE --> save to firestore
+          /// return true if no data (empty) in SQLITE --> save to firestore
           switch (status) {
             case true:{
               ///kiv  aspect result: result nak array --> string
               ///kiv   actual result : array--> map --> string
-              db.doc(selectDateDatabase).set({
+              db.collection('$labName Attendance').doc(selectDateDatabase).set({
                 "Student": [userDetails]});
               // }, SetOptions(merge: true));
 
             }
               break;
-            default:
+            default: /// ada data kt db
               {
               }
               break;
@@ -166,16 +174,18 @@ class AttendanceRepository {
         {
 
           /// kt sini ko save kt sqlite if n only if ( data tu x de)
-          bool status = await sQLiteDb.createAttendance(selectDateDatabase);
+          bool status = await sQLiteDb.createAttendance(selectDateDatabase,labName);
 
           /// return false if no data in SQLITE --> save to firestore
           switch (status) {
             case true:{
               ///kiv  aspect result: result nak array --> string
               ///kiv  actual result: result nak array --> string
-              db.doc(selectDateDatabase).update(
+              db.collection('$labName Attendance').doc(selectDateDatabase).update(
                   {"Student": FieldValue.arrayUnion([userDetails])});
             }
+            break;
+            case false:{}
             break;
             default:
               {
@@ -186,4 +196,57 @@ class AttendanceRepository {
         break;
     }
   }
+
+
+
+
+  ///check from firestore array when user want to scan QR code
+  /// return false if qr code is not valid --> bukan yg dh set
+  Future<bool> getLabListFirestore(LabModelSQLite labModelSQLite) async{
+    AttendanceBloc attendanceBloc = AttendanceBloc();
+
+    print ("data daripada  qrcode : ${labModelSQLite.username.toString()}");
+    List<String> allLabData =[];
+    final listLabCollection =  FirebaseFirestore.instance.collection("Lab List");
+    await listLabCollection.where('NamaMakmal',arrayContains: labModelSQLite.username.toString()).get().then((value) {
+      value.docs.forEach((result) {
+
+        allLabData.add(result.data()["NamaMakmal"].toString());
+        print(result.data());
+      });
+    });
+
+    if(allLabData.isEmpty)
+      {
+        print("xde data : $allLabData");
+        return false;
+      }
+    else
+      {
+        print(" data value : $allLabData");
+        return true;
+      }
+  }
+
+
+  ///get list of all equipment from specific lab
+  Future<List<EquipmentLabModel>> getAllEquipmentSpecificLab(labName) async
+  {
+    List<EquipmentLabModel> equipmentLab = [];
+    try {
+      final value = await FirebaseFirestore.instance.collection(labName.toString()).get();
+      for (var value in value.docs) {
+        equipmentLab.add(EquipmentLabModel.fromJson(value.data()));
+      }
+      return equipmentLab;
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print("Failed with error $e");
+      }
+      return equipmentLab;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }
+

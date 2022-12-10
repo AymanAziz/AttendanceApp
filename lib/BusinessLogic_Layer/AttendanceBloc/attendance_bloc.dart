@@ -16,7 +16,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     final AttendanceDbProvider attendanceDbProvider = AttendanceDbProvider();
 
     on<AddAttendanceUser>((event, emit) async {
-      await attendanceDbProvider.addAttendance();
+      await attendanceDbProvider.addAttendance(event.labName);
       // emit(UserLoaded(userdata));
     });
 
@@ -26,6 +26,13 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       emit(AttendanceLoading());
      final attendanceList = await attendanceDbProvider.getListAttendanceUser();
      emit(AttendanceListLoaded(attendanceList));
+    });
+
+    ///get attendance current date
+    on<GetAttendanceData>((event, emit) async {
+      emit(AttendanceLoading());
+      final attendance = await attendanceDbProvider.getCurrentDateAttendanceData(event.labName);
+      emit(AttendanceCurrentDateLoaded(attendance));
     });
 
   }

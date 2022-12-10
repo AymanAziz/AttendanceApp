@@ -37,7 +37,7 @@ class UserRepository {
   }
 
 
-  //add user to Repository
+  ///add user to Repository
   Future<void> updateUser(UserModel userModel) async {
     String uid = userModel.email.toString();
     await db.doc(uid).update({

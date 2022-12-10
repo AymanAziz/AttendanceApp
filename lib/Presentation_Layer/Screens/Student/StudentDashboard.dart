@@ -11,8 +11,8 @@ class StudentDashboard extends StatefulWidget {
 }
 
 class _StudentDashboard extends State<StudentDashboard> {
-  PageController _pageController = PageController();
-  List<Widget> _screens = [StudentHomeScreen(), const StudentSetting()];
+  final PageController _pageController = PageController();
+  final List<Widget> _screens = [const StudentHomeScreen(), const StudentSetting()];
 
   int _selectedIndex = 0;
 
